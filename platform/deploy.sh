@@ -7,8 +7,9 @@ APP_DIR="/var/www/$APP_NAME"
 SRC_DIR="$2" # git clone
 START_COMMAND="/usr/bin/npm start"   
 RUN_AS_USER="vagrant"  
+PORT="$3"
 
-if [ -z "$APP_NAME" ] || [ -z "$SRC_DIR" ]; then
+if [ -z "$APP_NAME" ] || [ -z "$SRC_DIR" ] || [ -z "$PORT" ]; then
   echo "usage: deploy.sh <app-name> <source-dir>"
   exit 1
 fi
