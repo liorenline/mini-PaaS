@@ -1,7 +1,5 @@
 #!/bin/bash
-
 set -e
-
 APP_NAME="$1"
 APP_DIR="/var/www/$APP_NAME"
 SRC_DIR="$2" # git clone

@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+GIT_DIR="$(pwd)"
+APP_NAME="$(basename "$GIT_DIR" .git)"
+PORT="$(git config --get paas.port || true)"
+TARGET="/tmp/$APP_NAME"
+if [ -z "$APP_NAME" ]; then
+  echo "error: could not determine app name"
+  exit 1
+fi
+if [ -z "$PORT" ]; then
+  echo "error: port not set, run: git config paas.port <port> in $GIT_DIR"
+  exit 1
+fi
+echo "received push for $APP_NAME"
+rm -rf "$TARGET"
+mkdir -p "$TARGET"
+unset GIT_INDEX_FILE
+git --work-tree="$TARGET" --git-dir="$GIT_DIR" checkout -f main
+echo "got the code"
+/vagrant/platform/deploy.sh "$APP_NAME" "$TARGET" "$PORT"
+echo "deployed $APP_NAME on port $PORT"
