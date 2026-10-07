@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
+source "$(dirname "$0")/config.sh"
 
 setup_colors() {
   if [[ -t 2 ]] && [[ -z "${NO_COLOR-}" ]] && [[ "${TERM-}" != "dumb" ]]; then
@@ -19,9 +20,8 @@ setup_colors
 APP_NAME="${1-}"
 SRC_DIR="${2-}"
 PORT="${3-}"
-APP_DIR="/var/www/$APP_NAME"
+APP_DIR="/var/www/$$APPS_DIR/$APP_NAME"
 START_COMMAND="/usr/bin/npm start"
-RUN_AS_USER="vagrant"
 
 if [ -z "$APP_NAME" ] || [ -z "$SRC_DIR" ] || [ -z "$PORT" ]; then
   msg "${RED}usage: deploy.sh <app-name> <source-dir> <port>${NOFORMAT}"
