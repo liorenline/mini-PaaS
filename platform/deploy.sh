@@ -2,13 +2,13 @@
 set -e
 APP_NAME="$1"
 APP_DIR="/var/www/$APP_NAME"
-SRC_DIR="$2" # git clone
+SRC_DIR="$2" 
 START_COMMAND="/usr/bin/npm start"   
 RUN_AS_USER="vagrant"  
 PORT="$3"
 
 if [ -z "$APP_NAME" ] || [ -z "$SRC_DIR" ] || [ -z "$PORT" ]; then
-  echo "usage: deploy.sh <app-name> <source-dir>"
+  echo "usage: deploy.sh <app-name> <source-dir> <port>"
   exit 1
 fi
 
@@ -54,3 +54,20 @@ sudo systemctl restart "$APP_NAME"
 echo "started"
 echo "status"
 sudo systemctl status "$APP_NAME" --no-pager
+
+sleep 1
+success="false"
+for i in {1..5}; do
+    if curl -f localhost:"$PORT"; then
+      success="true"
+        break
+    else
+        success="false"
+        echo "Problem, trying again"
+        sleep 1
+    fi
+done
+if [ "$success" != true ]; then
+    echo "deploy failed: app not responding on port "$PORT""
+    exit 1 
+fi
