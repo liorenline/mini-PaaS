@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 PLATFORM_DIR="${PLATFORM_DIR:-/vagrant/platform}"
 RUN_AS_USER="${RUN_AS_USER:-vagrant}"
 APPS_DIR="${APPS_DIR:-/var/www}"

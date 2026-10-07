@@ -20,7 +20,7 @@ setup_colors
 APP_NAME="${1-}"
 SRC_DIR="${2-}"
 PORT="${3-}"
-APP_DIR="/var/www/$$APPS_DIR/$APP_NAME"
+APP_DIR="$APPS_DIR/$APP_NAME"
 START_COMMAND="/usr/bin/npm start"
 
 if [ -z "$APP_NAME" ] || [ -z "$SRC_DIR" ] || [ -z "$PORT" ]; then
