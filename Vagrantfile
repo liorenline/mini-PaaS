@@ -5,6 +5,6 @@ Vagrant.configure("2") do |config|
     utm.cpus = 2
     utm.memory = 2048  
   end
-  config.vm.provision "shell", path: "platform/setup.sh"
+  config.vm.provision "shell", inline: "bash /vagrant/platform/setup.sh"
 
 end
