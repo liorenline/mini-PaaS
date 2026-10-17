@@ -2,6 +2,7 @@
 set -Eeuo pipefail
 
 PLATFORM_DIR="${PLATFORM_DIR:-/vagrant/platform}"
+# shellcheck source=platform/config.sh
 source "$PLATFORM_DIR/config.sh"
 
 setup_colors() {
@@ -40,6 +41,7 @@ mkdir -p "$TARGET"
 
 unset GIT_INDEX_FILE
 git --work-tree="$TARGET" --git-dir="$GIT_DIR" checkout -f "$DEPLOY_BRANCH"
+VERSION="$(git --git-dir="$GIT_DIR" rev-parse --short "$DEPLOY_BRANCH")"
 msg "${GREEN}Got the code${NOFORMAT}"
 
-"$PLATFORM_DIR/deploy.sh" "$APP_NAME" "$TARGET" "$PORT"
+"$PLATFORM_DIR/deploy.sh" "$APP_NAME" "$TARGET" "$PORT" "$VERSION"
