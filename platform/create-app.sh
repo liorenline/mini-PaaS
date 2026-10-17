@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+# shellcheck source=platform/config.sh
 source "$(dirname "$0")/config.sh"
 
 if [ "$#" -ne 2 ]; then

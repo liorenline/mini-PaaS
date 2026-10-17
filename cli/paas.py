@@ -35,8 +35,7 @@ def run_remote(command: str, capture: bool = True, tty: bool = False) -> str:
     args += [PAAS_HOST, command]
 
     log.debug("running on %s: %s", PAAS_HOST, command)
-    result = subprocess.run(args, capture_output=capture, text=True)
-
+    result = subprocess.run(args, check=False, capture_output=capture, text=True)
     if result.returncode != 0:
         if capture and result.stderr:
             log.error(result.stderr.strip())
