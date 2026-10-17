@@ -7,7 +7,7 @@ setup_colors() {
   if [[ -t 2 ]] && [[ -z "${NO_COLOR-}" ]] && [[ "${TERM-}" != "dumb" ]]; then
     NOFORMAT='\033[0m' RED='\033[0;31m' GREEN='\033[0;32m' YELLOW='\033[1;33m'
   else
-    NOFORMAT='' RED='' GREEN='' YELLOW=''
+    NOFORMAT='' RED='' GREEN=''
   fi
 }
 
